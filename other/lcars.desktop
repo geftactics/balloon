@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=LCARS
+Exec=/home/pi/lcars/lcars.sh

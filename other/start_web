@@ -1,0 +1,5 @@
+sudo killall chromium-browser
+chromium-browser --window-size=695,388 --window-position=100,28 --app=$1 &
+#sleep 2
+#wmctrl -r "chromium-browser" -e 0,100,28,695,388
+wmctrl -R "chromium-browser"

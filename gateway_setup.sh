@@ -13,8 +13,14 @@ apt-get update && apt-get -y upgrade
 echo "Installing packages..."
 apt-get -y install git libcurl4-openssl-dev libncurses5-dev ssdv wiringpi
 
+echo "Enabling SSH..."
+raspi-config nonint do_ssh 0
+
 echo "Enabling SPI..."
 raspi-config nonint do_spi 0
+
+echo "Disabling boot splash..."
+raspi-config nonint do_boot_splash 1
 
 echo "Setting hostname..."
 raspi-config nonint do_hostname gateway
@@ -26,7 +32,7 @@ systemctl disable hciuart
 echo "Installing lora-gateway..."
 git clone https://github.com/PiInTheSky/lora-gateway.git /home/pi/lora-gateway
 make -C /home/pi/lora-gateway/
-cp -f $(dirname $0)/gateway.txt /home/pi/lora-gateway/gateway.txt
+cp -f $(dirname $0)/config/gateway.txt /home/pi/lora-gateway/gateway.txt
 chown -R pi:pi /home/pi/lora-gateway/
 
 echo "-------------------------------------"

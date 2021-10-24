@@ -21,6 +21,9 @@ make install -C /tmp/pigpio-master/
 rm -rf /tmp/pigpio-master
 rm /tmp/pigpio.zip
 
+echo "Enabling SSH..."
+raspi-config nonint do_ssh 0
+
 echo "Enabling camera..."
 raspi-config nonint do_camera 0
 
@@ -39,6 +42,9 @@ raspi-config nonint do_onewire 0
 echo "Setting hostname..."
 raspi-config nonint do_hostname tracker
 
+echo "Disabling boot splash SPI..."
+raspi-config nonint do_boot_splash 1
+
 echo "Disabling bluetooth"
 grep -qxF 'dtoverlay=pi3-disable-bt' /boot/config.txt || echo 'dtoverlay=pi3-disable-bt' >> /boot/config.txt
 systemctl disable hciuart
@@ -48,7 +54,7 @@ git clone https://github.com/PiInTheSky/pits.git /home/pi/pits
 sed -i 's/B9600/B115200/' /home/pi/pits/tracker/gps.c
 make -C /home/pi/pits/tracker/
 chown -R pi:pi /home/pi/pits/
-cp -f $(dirname $0)/pisky.txt /boot/pisky.txt
+cp -f $(dirname $0)/config/pisky.txt /boot/pisky.txt
 cp -f /home/pi/pits/systemd/tracker.service /lib/systemd/system
 systemctl enable tracker.service
 
