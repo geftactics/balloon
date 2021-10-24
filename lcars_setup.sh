@@ -47,13 +47,13 @@ chown -R pi:pi /home/pi/lora-gateway/
 echo "Installing LCARS..."
 git clone https://github.com/PiInTheSky/lcars.git /home/pi/lcars
 chmod +x /home/pi/lcars/lcars.sh
-apt-get -y install gnuplot screen wmctrl xterm
+apt-get -y install gnuplot python-qt4 python3-qt4 screen wmctrl xterm 
 sed -i 's/DEVICES=.*/DEVICES="\/dev\/ttyAMA0"/' /etc/default/gpsd
-sed 's/SSDVPath/SSDV.Path/' /home/pi/lcars/lcars.py
+sed -i 's/SSDVPath/SSDV.Path/' /home/pi/lcars/lcars.py
 cp -f $(dirname $0)/other/start_web /home/pi/lcars/start_web
 chown -R pi:pi /home/pi/lcars
 mkdir /home/pi/.fonts
-cp -f $(dirname $0)/.fonts/*.ttf /home/pi/.fonts/
+cp -f $(dirname $0)/fonts/*.ttf /home/pi/.fonts/
 chown -R pi:pi /home/pi/.fonts
 fc-cache -v -f
 mkdir /home/pi/.config/autostart
