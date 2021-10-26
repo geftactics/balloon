@@ -42,9 +42,6 @@ raspi-config nonint do_onewire 0
 echo "Setting hostname..."
 raspi-config nonint do_hostname tracker
 
-echo "Disabling boot splash SPI..."
-raspi-config nonint do_boot_splash 1
-
 echo "Disabling bluetooth"
 grep -qxF 'dtoverlay=pi3-disable-bt' /boot/config.txt || echo 'dtoverlay=pi3-disable-bt' >> /boot/config.txt
 systemctl disable hciuart
