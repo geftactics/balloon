@@ -7,12 +7,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-echo "Updating packages..."
-apt-get update && apt-get -y upgrade
-
-echo "Installing packages..."
-apt-get -y install git gpsd libcurl4-openssl-dev libncurses5-dev ssdv wiringpi
-
 echo "Enabling SSH..."
 raspi-config nonint do_ssh 0
 
@@ -27,6 +21,12 @@ raspi-config nonint do_serial 2
 
 echo "Disabling boot splash..."
 raspi-config nonint do_boot_splash 1
+
+echo "Updating packages..."
+apt-get update && apt-get -y upgrade
+
+echo "Installing packages..."
+apt-get -y install git gpsd libcurl4-openssl-dev libncurses5-dev ssdv wiringpi
 
 echo "Setting hostname..."
 raspi-config nonint do_hostname chase
