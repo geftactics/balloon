@@ -7,20 +7,6 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-echo "Updating packages..."
-apt-get update && apt-get -y upgrade
-
-echo "Installing packages..."
-apt-get -y install fswebcam git python3-distutils ssdv wiringpi
-
-echo "Building pigpio..."
-wget https://github.com/joan2937/pigpio/archive/master.zip -q --show-progress -O /tmp/pigpio.zip
-unzip -q /tmp/pigpio.zip -d /tmp
-make -C /tmp/pigpio-master/
-make install -C /tmp/pigpio-master/
-rm -rf /tmp/pigpio-master
-rm /tmp/pigpio.zip
-
 echo "Enabling SSH..."
 raspi-config nonint do_ssh 0
 
@@ -38,6 +24,20 @@ raspi-config nonint do_serial 2
 
 echo "Enabling 1-Wire..."
 raspi-config nonint do_onewire 0
+
+echo "Updating packages..."
+apt-get update && apt-get -y upgrade
+
+echo "Installing packages..."
+apt-get -y install fswebcam git python3-distutils ssdv wiringpi
+
+echo "Building pigpio..."
+wget https://github.com/joan2937/pigpio/archive/master.zip -q --show-progress -O /tmp/pigpio.zip
+unzip -q /tmp/pigpio.zip -d /tmp
+make -C /tmp/pigpio-master/
+make install -C /tmp/pigpio-master/
+rm -rf /tmp/pigpio-master
+rm /tmp/pigpio.zip
 
 echo "Setting hostname..."
 raspi-config nonint do_hostname tracker
