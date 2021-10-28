@@ -29,7 +29,7 @@ echo "Updating packages..."
 apt-get update && apt-get -y upgrade
 
 echo "Installing packages..."
-apt-get -y install fswebcam git python3-distutils ssdv wiringpi
+apt-get -y install fswebcam git python3-distutils python3-picamera ssdv wiringpi
 
 echo "Building pigpio..."
 wget https://github.com/joan2937/pigpio/archive/master.zip -q --show-progress -O /tmp/pigpio.zip
